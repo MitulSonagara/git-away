@@ -1,6 +1,7 @@
 "use client";
 
 import FeaturesSection from "@/components/features-section";
+import HowItWorks from "@/components/how-it-works";
 import { Button } from "@/components/ui/button";
 import { Coffee, Github, Umbrella } from "lucide-react";
 import Image from "next/image";
@@ -39,7 +40,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
-      <section className="relative flex items-center justify-center min-h-screen overflow-hidden px-4 sm:px-6 lg:px-8">
+      <section className="relative flex items-center justify-center min-h-screen px-4 overflow-hidden sm:px-6 lg:px-8">
         <Image
           src="/hero-background.jpg"
           alt="Hero Background"
@@ -49,21 +50,21 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-background/80" />
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto text-center">
+        <div className="relative z-10 w-full mx-auto text-center max-w-7xl">
           {/* Logo/Brand Section */}
-          <div className="flex items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
-            <Umbrella className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-blue-400 float" />
-            <h1 className="text-5xl md:text-7xl font-bold">
+          <div className="flex items-center justify-center gap-2 mb-6 sm:gap-3 sm:mb-8">
+            <Umbrella className="w-6 h-6 text-blue-400 sm:w-8 sm:h-8 lg:w-10 lg:h-10 float" />
+            <h1 className="text-5xl font-bold md:text-7xl">
               Git<span className="text-green-500">Away</span>
             </h1>
             <Coffee
-              className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-yellow-400 float"
+              className="w-6 h-6 text-yellow-400 sm:w-8 sm:h-8 lg:w-10 lg:h-10 float"
               style={{ animationDelay: "1s" }}
             />
           </div>
 
           {/* Main Headline */}
-          <h2 className="mb-4 sm:mb-6 text-2xl md:text-4xl font-semibold text-muted-foreground px-4">
+          <h2 className="px-4 mb-4 text-2xl font-semibold sm:mb-6 md:text-4xl text-muted-foreground">
             "Your streak doesn't need a{" "}
             <span className="text-blue-400">break,</span>
             <br className="hidden sm:block" />
@@ -72,7 +73,7 @@ export default function Home() {
           </h2>
 
           {/* Subheadline */}
-          <p className="max-w-xs sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl mx-auto mb-6 sm:mb-8 lg:mb-12 text-lg md:text-xl text-muted-foreground px-4">
+          <p className="max-w-xs px-4 mx-auto mb-6 text-lg sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl sm:mb-8 lg:mb-12 md:text-xl text-muted-foreground">
             Keep your GitHub contribution graph green{" "}
             <br className="hidden sm:block" />
             <span className="sm:hidden"> </span>
@@ -80,7 +81,7 @@ export default function Home() {
           </p>
 
           {/* Terminal Window */}
-          <div className="max-w-md sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl mx-auto mb-8 sm:mb-12 lg:mb-16 px-4">
+          <div className="max-w-md px-4 mx-auto mb-8 sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl sm:mb-12 lg:mb-16">
             <div className="terminal-window">
               {/* Terminal Header */}
               <div className="terminal-header">
@@ -95,7 +96,7 @@ export default function Home() {
               {/* Terminal Content */}
               <div className="terminal-content min-h-[60px] sm:min-h-[80px] lg:min-h-[100px] flex items-center">
                 <span className="text-primary">$</span>
-                <span className="ml-2 typing text-xs sm:text-sm md:text-base break-all">
+                <span className="ml-2 text-xs break-all typing sm:text-sm md:text-base">
                   {typedText}
                 </span>
               </div>
@@ -103,21 +104,21 @@ export default function Home() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-4">
-            <Button size="lg" variant={"hero"} className="text-lg px-8 py-6">
-              <Github className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
+          <div className="flex flex-col justify-center gap-3 px-4 mb-6 sm:flex-row sm:gap-4 sm:mb-8">
+            <Button size="lg" variant={"hero"} className="px-8 py-6 text-lg">
+              <Github className="w-4 h-4 mr-2 sm:w-5 sm:h-5" />
               <span className="sm:hidden">Start Free</span>
               <span className="hidden sm:inline">
                 Get Started Free with GitHub
               </span>
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+            <Button variant="outline" size="lg" className="px-8 py-6 text-lg">
               Watch Demo
             </Button>
           </div>
 
           {/* Footer Text */}
-          <p className="text-xs sm:text-sm text-muted-foreground px-4 mx-auto leading-relaxed">
+          <p className="px-4 mx-auto text-xs leading-relaxed sm:text-sm text-muted-foreground">
             No credit card required • 7 commits free • 2 minutes setup
           </p>
         </div>
@@ -125,6 +126,8 @@ export default function Home() {
 
       {/* Features Section */}
       <FeaturesSection />
+
+      <HowItWorks />
     </div>
   );
 }
