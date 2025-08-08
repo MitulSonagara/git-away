@@ -1,17 +1,15 @@
 import {
   Bot,
-  Sparkles,
-  Shield,
   Calendar,
   Github,
-  Zap,
-  Mail,
-  FileText,
-  SlidersHorizontal,
-  Eye,
-  Ghost,
   LayoutDashboard,
+  Mail,
+  Shield,
+  SlidersHorizontal,
+  Sparkles,
+  Zap,
 } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 const FeaturesSection = () => {
   const features = [
@@ -85,26 +83,76 @@ const FeaturesSection = () => {
       icon: LayoutDashboard,
       title: "Intuitive Dashboard",
       description:
-        "Monitor your fake commits, manage repos, update vacation schedules, and tweak settings — all in one clean interface.",
+        "Monitor your fake commits, manage repos, update vacation schedules, and tweak settings - all in one place.",
     },
   ];
 
   return (
-    <section className="py-20 relative">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h3 className="text-3xl md:text-4xl font-bold mb-4">
+    <section className="relative px-10 py-12 sm:py-16 lg:py-20 sm:px-16 lg:px-28">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-12 text-center sm:mb-16">
+          <h3 className="px-4 mb-3 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl sm:mb-4">
             Features that keep your streak{" "}
             <span className="text-green-500">alive</span>
           </h3>
-          <p className="text-lg text-muted-foreground">
+          <p className="max-w-2xl px-4 mx-auto text-base sm:text-lg lg:text-xl text-muted-foreground">
             Three simple tools to maintain your GitHub presence while you enjoy
             life
           </p>
         </div>
       </div>
+
+      <div className="grid gap-8 mb-16 md:grid-cols-3">
+        {features.map((feature, index) => (
+          <Card
+            key={index}
+            className="transition-all duration-300 shadow-lg hover:shadow-green-400/40 shadow-card group"
+          >
+            <CardHeader className="text-center">
+              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 transition-colors rounded-lg bg-green-400/10 group-hover:bg-green-400/20">
+                <feature.icon className="w-8 h-8 text-green-500" />
+              </div>
+              <CardTitle className="text-xl font-bold">
+                {feature.title}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="mb-4 text-muted-foreground">
+                {feature.description}
+              </p>
+              <ul className="space-y-2">
+                {feature.details.map((detail, detailIndex) => (
+                  <li key={detailIndex} className="flex items-center text-sm">
+                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3"></div>
+                    {detail}
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+      {/* Additional features grid */}
+      <div className="grid gap-6 md:grid-cols-3">
+        {additionalFeatures.map((feature, index) => (
+          <div
+            key={index}
+            className="flex items-start gap-4 p-6 transition-colors rounded-lg bg-card/50 hover:bg-card"
+          >
+            <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-lg bg-blue-400/10">
+              <feature.icon className="w-5 h-5 text-blue-400" />
+            </div>
+            <div>
+              <h3 className="mb-2 font-semibold">{feature.title}</h3>
+              <p className="text-sm text-muted-foreground">
+                {feature.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   );
 };
 
-export default FeaturesSection
+export default FeaturesSection;

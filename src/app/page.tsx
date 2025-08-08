@@ -1,5 +1,6 @@
 "use client";
 
+import FeaturesSection from "@/components/features-section";
 import { Button } from "@/components/ui/button";
 import { Coffee, Github, Umbrella } from "lucide-react";
 import Image from "next/image";
@@ -123,20 +124,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-12 sm:py-16 lg:py-20 relative px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 sm:mb-16">
-            <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 px-4">
-              Features that keep your streak{" "}
-              <span className="text-green-500">alive</span>
-            </h3>
-            <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-              Three simple tools to maintain your GitHub presence while you
-              enjoy life
-            </p>
-          </div>
-        </div>
-      </section>
+      <FeaturesSection />
     </div>
   );
 }
