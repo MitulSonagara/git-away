@@ -2,6 +2,7 @@
 
 import FeaturesSection from "@/components/features-section";
 import HowItWorks from "@/components/how-it-works";
+import TestimonialsSection from "@/components/testimonial-section";
 import { Button } from "@/components/ui/button";
 import { Coffee, Github, Umbrella } from "lucide-react";
 import Image from "next/image";
@@ -128,6 +129,8 @@ export default function Home() {
       <FeaturesSection />
 
       <HowItWorks />
+
+      <TestimonialsSection />
     </div>
   );
 }

@@ -83,7 +83,7 @@ const FeaturesSection = () => {
       icon: LayoutDashboard,
       title: "Intuitive Dashboard",
       description:
-        "Monitor your fake commits, manage repos, update vacation schedules, and tweak settings - all in one place.",
+        "Monitor your fake commits, manage repos, update vacation schedules, and tweak settings.",
     },
   ];
 
@@ -102,7 +102,7 @@ const FeaturesSection = () => {
         </div>
       </div>
 
-      <div className="grid gap-8 mb-16 md:grid-cols-3">
+      <div className="grid max-w-6xl gap-8 mx-auto mb-16 md:grid-cols-3">
         {features.map((feature, index) => (
           <Card
             key={index}
@@ -133,7 +133,7 @@ const FeaturesSection = () => {
         ))}
       </div>
       {/* Additional features grid */}
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid max-w-6xl gap-6 mx-auto md:grid-cols-3">
         {additionalFeatures.map((feature, index) => (
           <div
             key={index}
