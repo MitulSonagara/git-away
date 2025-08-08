@@ -1,5 +1,6 @@
 "use client";
 
+import FAQSection from "@/components/faq-section";
 import FeaturesSection from "@/components/features-section";
 import HowItWorks from "@/components/how-it-works";
 import TestimonialsSection from "@/components/testimonial-section";
@@ -125,12 +126,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
       <FeaturesSection />
-
       <HowItWorks />
-
       <TestimonialsSection />
+      <FAQSection />
     </div>
   );
 }

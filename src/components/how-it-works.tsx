@@ -5,10 +5,10 @@ const HowItWorks = () => {
     <section className="px-6 py-20 bg-secondary/30">
       <div className="max-w-6xl mx-auto">
         <div className="mb-16 text-center">
-          <h3 className="mb-4 text-3xl font-bold md:text-4xl">
+          <h2 className="mb-4 text-4xl font-bold md:text-5xl">
             How It <span className="text-green-500">Works</span>
-          </h3>
-          <p className="text-lg text-muted-foreground">
+          </h2>
+          <p className="max-w-3xl mx-auto text-xl text-muted-foreground">
             Three simple steps to vacation-proof your GitHub streak
           </p>
         </div>

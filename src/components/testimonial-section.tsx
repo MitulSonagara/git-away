@@ -62,8 +62,8 @@ const TestimonialsSection = () => {
             Loved by <span className="text-green-500">developers</span>{" "}
             worldwide
           </h2>
-          <p className="max-w-2xl mx-auto text-xl text-muted-foreground">
-            Real testimonials from totally real developers* who definitely
+          <p className="max-w-3xl mx-auto text-xl text-muted-foreground">
+            Real testimonials from totally real developers who definitely
             exist.
           </p>
           <p className="mt-2 text-sm text-muted-foreground">

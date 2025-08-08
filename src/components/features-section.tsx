@@ -88,21 +88,21 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section className="relative px-10 py-12 sm:py-16 lg:py-20 sm:px-16 lg:px-28">
+    <section className="relative py-12 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 text-center sm:mb-16">
-          <h3 className="px-4 mb-3 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl sm:mb-4">
+          <h2 className="mb-4 text-4xl font-bold md:text-5xl">
             Features that keep your streak{" "}
             <span className="text-green-500">alive</span>
-          </h3>
-          <p className="max-w-2xl px-4 mx-auto text-base sm:text-lg lg:text-xl text-muted-foreground">
+          </h2>
+          <p className="max-w-3xl mx-auto text-xl text-muted-foreground">
             Three simple tools to maintain your GitHub presence while you enjoy
             life
           </p>
         </div>
       </div>
 
-      <div className="grid max-w-6xl gap-8 mx-auto mb-16 md:grid-cols-3">
+      <div className="grid max-w-6xl gap-6 mx-auto mb-8 md:grid-cols-2 lg:grid-cols-3">
         {features.map((feature, index) => (
           <Card
             key={index}
@@ -133,7 +133,7 @@ const FeaturesSection = () => {
         ))}
       </div>
       {/* Additional features grid */}
-      <div className="grid max-w-6xl gap-6 mx-auto md:grid-cols-3">
+      <div className="grid max-w-6xl gap-6 mx-auto md:grid-cols-2 lg:grid-cols-3">
         {additionalFeatures.map((feature, index) => (
           <div
             key={index}
