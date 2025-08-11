@@ -13,7 +13,11 @@ import {
 } from "./ui/card";
 import { Button } from "./ui/button";
 
-const FAQSection = () => {
+interface FAQSectionProps {
+  openModal: () => void;
+}
+
+const FAQSection = ({ openModal }: FAQSectionProps) => {
   const faqs = [
     {
       question: "Is this cheating?",
@@ -118,7 +122,7 @@ const FAQSection = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full" onClick={openModal}>
                 💬 Contact Support
               </Button>
             </CardContent>
@@ -134,7 +138,10 @@ const FAQSection = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
+              <Button
+                className="w-full bg-green-500 hover:bg-green-600 text-white"
+                onClick={openModal}
+              >
                 Start Free Trial
               </Button>
             </CardContent>

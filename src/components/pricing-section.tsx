@@ -5,7 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check } from "lucide-react";
 
-export default function PricingSection() {
+interface PricingSectionProps {
+  openModal: () => void;
+}
+
+export default function PricingSection({ openModal }: PricingSectionProps) {
   const features = [
     "Unlimited repo streak protection",
     "AI or template commit messages",
@@ -60,7 +64,7 @@ export default function PricingSection() {
             </CardContent>
 
             <CardFooter className="flex flex-col gap-3">
-              <Button size="lg" variant={"hero"} className="px-8 py-6 text-lg">
+              <Button size="lg" variant={"hero"} className="px-8 py-6 text-lg" onClick={openModal}>
                 Start Free for 30 Days
               </Button>
               <p className="text-sm text-muted-foreground text-center">
