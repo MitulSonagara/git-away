@@ -54,13 +54,13 @@ const TestimonialsSection = () => {
     },
   ];
   return (
-    <section className="py-20 bg-card/10">
+    <section className="py-20 ">
       <div className="px-4 mx-auto">
         {/* Section header */}
         <div className="mb-16 text-center">
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">
-            Loved by <span className="text-green-500">developers</span>{" "}
-            worldwide
+            Loved by <span className="text-green-500">Developers</span>{" "}
+            Worldwide
           </h2>
           <p className="max-w-3xl mx-auto text-xl text-muted-foreground">
             Real testimonials from totally real developers who definitely

@@ -15,35 +15,35 @@ const FeaturesSection = () => {
   const features = [
     {
       icon: Bot,
-      title: "Automated GitHub Activity",
+      title: "Automated Streak Protection",
       description:
-        "Schedule auto-commits for your away days. Let GitAway do the streak-saving.",
+        "Set it and forget it — GitAway commits for you while you’re busy or away.",
       details: [
         "Smart commit scheduling",
-        "AI-powered commit messages",
         "Multiple repo support",
+        "Randomized commit times",
       ],
     },
     {
       icon: Sparkles,
-      title: "Custom & Creative Commits",
+      title: "AI & Template Commit Messages",
       description:
-        "Go basic, or go wild. Choose commit styles that match your vibe.",
+        "From minimal to creative — your commits can match your personality or stay invisible.",
       details: [
-        "AI-generated creative messages",
-        "Vacation-themed options (e.g. beach mode)",
-        "Customizable commit templates",
+        "AI-generated commit messages",
+        "Fixed or custom templates",
+        "Theme-based commit styles",
       ],
     },
     {
       icon: Shield,
       title: "Safe & Transparent",
       description:
-        "OAuth only. You choose what GitAway can do — and nothing else.",
+        "OAuth only. You decide where GitAway can commit — and nothing else.",
       details: [
         "GitHub OAuth 2.0",
         "Only selected repos touched",
-        "Full control and visibility at all times",
+        "Full visibility & control",
       ],
     },
   ];
@@ -51,44 +51,44 @@ const FeaturesSection = () => {
   const additionalFeatures = [
     {
       icon: Calendar,
-      title: "Vacation Scheduling",
+      title: "Commit Calendar Simulation",
       description:
-        "Set your vacation dates — GitAway handles your daily activity behind the scenes.",
+        "Commits spread naturally across the day — no suspicious midnight dumps.",
     },
     {
-      icon: Github,
-      title: "GitHub Native",
+      icon: Zap,
+      title: "Emergency Commit Button",
       description:
-        "Built specifically for GitHub’s contribution graph and streak detection rules.",
+        "Missed scheduling? Trigger an instant commit from the dashboard or email.",
     },
     {
       icon: Mail,
-      title: "Email Reminders",
+      title: "Email Alerts",
       description:
-        "Get notified if a commit fails or if your schedule runs out.",
+        "Pro users get notified before the day ends if no commit has been made.",
     },
     {
       icon: SlidersHorizontal,
       title: "Fully Configurable",
       description:
-        "Choose repos, templates, frequency, and commit style — all from your dashboard.",
-    },
-    {
-      icon: Zap,
-      title: "Lightning Fast Setup",
-      description:
-        "Connect your GitHub and start faking commits — all in under 2 minutes.",
+        "Choose repos, commit frequency, styles, and messages — all from one dashboard.",
     },
     {
       icon: LayoutDashboard,
       title: "Intuitive Dashboard",
       description:
-        "Monitor your fake commits, manage repos, update vacation schedules, and tweak settings.",
+        "Track commits, streak stats, vacation days, and scheduling in one place.",
+    },
+    {
+      icon: Github,
+      title: "Built for GitHub",
+      description:
+        "Optimized for GitHub’s contribution graph and streak detection rules.",
     },
   ];
 
   return (
-    <section className="relative py-12 sm:py-16 lg:py-20">
+    <section className="relative py-12 sm:py-16 lg:py-20 ">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 text-center sm:mb-16">
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">
@@ -116,11 +116,11 @@ const FeaturesSection = () => {
                 {feature.title}
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex flex-col h-full">
               <p className="mb-4 text-muted-foreground">
                 {feature.description}
               </p>
-              <ul className="space-y-2">
+              <ul className="mt-auto space-y-2">
                 {feature.details.map((detail, detailIndex) => (
                   <li key={detailIndex} className="flex items-center text-sm">
                     <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3"></div>
@@ -137,13 +137,13 @@ const FeaturesSection = () => {
         {additionalFeatures.map((feature, index) => (
           <div
             key={index}
-            className="flex items-start gap-4 p-6 transition-colors rounded-lg bg-card/50 hover:bg-card"
+            className="flex items-start gap-4 p-5 transition-all duration-300 rounded-lg bg-card/50 hover:bg-card hover:shadow-lg hover:shadow-blue-400/20"
           >
-            <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-lg bg-blue-400/10">
-              <feature.icon className="w-5 h-5 text-blue-400" />
+            <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-lg bg-blue-400/10">
+              <feature.icon className="w-6 h-6 text-blue-400" />
             </div>
-            <div>
-              <h3 className="mb-2 font-semibold">{feature.title}</h3>
+            <div className="flex flex-col justify-center">
+              <h3 className="mb-1 font-semibold">{feature.title}</h3>
               <p className="text-sm text-muted-foreground">
                 {feature.description}
               </p>

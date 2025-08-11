@@ -3,6 +3,7 @@
 import FAQSection from "@/components/faq-section";
 import FeaturesSection from "@/components/features-section";
 import HowItWorks from "@/components/how-it-works";
+import PricingSection from "@/components/pricing-section";
 import TestimonialsSection from "@/components/testimonial-section";
 import { Button } from "@/components/ui/button";
 import { Coffee, Github, Umbrella } from "lucide-react";
@@ -111,7 +112,7 @@ export default function Home() {
               <Github className="w-4 h-4 mr-2 sm:w-5 sm:h-5" />
               <span className="sm:hidden">Start Free</span>
               <span className="hidden sm:inline">
-                Get Started Free with GitHub
+                Start Free for 30 Days
               </span>
             </Button>
             <Button variant="outline" size="lg" className="px-8 py-6 text-lg">
@@ -121,7 +122,7 @@ export default function Home() {
 
           {/* Footer Text */}
           <p className="px-4 mx-auto text-xs leading-relaxed sm:text-sm text-muted-foreground">
-            No credit card required • 7 commits free • 2 minutes setup
+            No credit card required • 1 month free • 2 minutes setup
           </p>
         </div>
       </section>
@@ -129,6 +130,7 @@ export default function Home() {
       <FeaturesSection />
       <HowItWorks />
       <TestimonialsSection />
+      <PricingSection />
       <FAQSection />
     </div>
   );
