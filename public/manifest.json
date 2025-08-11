@@ -1,0 +1,27 @@
+{
+  "name": "GitAway - GitHub Streak Keeper",
+  "short_name": "GitAway",
+  "description": "Keep your GitHub streak alive automatically with smart commit scheduling and AI-powered messages. Never break your contribution graph again.",
+  "start_url": "/?utm_source=pwa",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#238636",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["productivity", "developer", "automation"],
+  "icons": [
+    {
+      "src": "/favicon-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

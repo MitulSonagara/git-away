@@ -57,7 +57,7 @@ const TestimonialsSection = () => {
     <section className="py-20 ">
       <div className="px-4 mx-auto">
         {/* Section header */}
-        <div className="mb-16 text-center">
+        <div className="mb-12 text-center sm:mb-16">
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">
             Loved by <span className="text-green-500">Developers</span>{" "}
             Worldwide

@@ -18,7 +18,7 @@ export default function PricingSection() {
 
   return (
     <section className="relative py-12 sm:py-16 lg:py-20 bg-secondary/30">
-      <div className="mx-auto max-w-7xl">
+      <div className="px-4 mx-auto">
         
         {/* Heading */}
         <div className="mb-12 text-center sm:mb-16">
