@@ -13,15 +13,14 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [typedText, setTypedText] = useState("");
   const [currentCommit, setCurrentCommit] = useState(0);
-
-  const commits = [
-    "git commit -m 'feat: enjoying beach vibes ☀️'",
-    "git commit -m 'fix: tan lines optimization 🏖️'",
-    "git commit -m 'docs: vacation mode activated 🌴'",
-    "git commit -m 'refactor: stress levels to zero ✨'",
-  ];
-
   useEffect(() => {
+    const commits = [
+      "git commit -m 'feat: enjoying beach vibes ☀️'",
+      "git commit -m 'fix: tan lines optimization 🏖️'",
+      "git commit -m 'docs: vacation mode activated 🌴'",
+      "git commit -m 'refactor: stress levels to zero ✨'",
+    ];
+
     const text = commits[currentCommit];
     let i = 0;
     const timer = setInterval(() => {
@@ -68,11 +67,11 @@ export default function Home() {
 
           {/* Main Headline */}
           <h2 className="px-4 mb-4 text-2xl font-semibold sm:mb-6 md:text-4xl text-muted-foreground">
-            "Your streak doesn't need a{" "}
+            &quot;Your streak doesn&apos;t need a{" "}
             <span className="text-blue-400">break,</span>
             <br className="hidden sm:block" />
             <span className="sm:hidden"> </span>
-            <span className="text-green-500">even if you do."</span>
+            <span className="text-green-500">even if you do.&quot;</span>
           </h2>
 
           {/* Subheadline */}
@@ -80,7 +79,7 @@ export default function Home() {
             Keep your GitHub contribution graph green{" "}
             <br className="hidden sm:block" />
             <span className="sm:hidden"> </span>
-            even while you're on vacation 🌴.
+            even while you&apos;re on vacation 🌴.
           </p>
 
           {/* Terminal Window */}
@@ -111,9 +110,7 @@ export default function Home() {
             <Button size="lg" variant={"hero"} className="px-8 py-6 text-lg">
               <Github className="w-4 h-4 mr-2 sm:w-5 sm:h-5" />
               <span className="sm:hidden">Start Free</span>
-              <span className="hidden sm:inline">
-                Start Free for 30 Days
-              </span>
+              <span className="hidden sm:inline">Start Free for 30 Days</span>
             </Button>
             <Button variant="outline" size="lg" className="px-8 py-6 text-lg">
               Watch Demo
