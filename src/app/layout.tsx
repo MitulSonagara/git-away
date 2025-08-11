@@ -53,15 +53,15 @@ export const metadata: Metadata = {
     "GitHub streak during holidays",
     "maintain coding streak automatically",
   ],
-  authors: [{ name: "GitAway Team", url: "https://gitaway.app" }],
+  authors: [{ name: "GitAway Team", url: "https://git-away.vercel.app/" }],
   creator: "GitAway",
   publisher: "GitAway",
-  metadataBase: new URL("https://gitaway.app"),
+  metadataBase: new URL("https://git-away.vercel.app/"),
   openGraph: {
     title: "GitAway – Keep Your GitHub Streak Alive",
     description:
       "Your streak doesn't need a break, even if you do. GitAway makes commits for you while you're away, keeping your contribution graph green with smart scheduling and AI messages.",
-    url: "https://gitaway.app",
+    url: "https://git-away.vercel.app/",
     siteName: "GitAway",
     images: [
       {
