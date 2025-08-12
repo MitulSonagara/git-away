@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     description:
       "Keep your GitHub contribution graph green even while you're on vacation. Smart commit scheduling, AI messages, and streak protection.",
     images: ["/og-image.png"],
-    creator: "@MitulSongara",
+    creator: "@MitulSonagara",
   },
   icons: {
     icon: [
