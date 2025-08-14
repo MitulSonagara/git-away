@@ -1,6 +1,6 @@
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
 import { Quote } from "lucide-react";
-import { Card, CardContent } from "./ui/card";
-import { Avatar, AvatarFallback } from "./ui/avatar";
 
 const TestimonialsSection = () => {
   const testimonials = [
@@ -63,8 +63,7 @@ const TestimonialsSection = () => {
             Worldwide
           </h2>
           <p className="max-w-3xl mx-auto text-xl text-muted-foreground">
-            Real testimonials from totally real developers who definitely
-            exist.
+            Real testimonials from totally real developers who definitely exist.
           </p>
           <p className="mt-2 text-sm text-muted-foreground">
             *Developer personas may be fictional but the pain is real
