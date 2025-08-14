@@ -1,6 +1,6 @@
 "use client";
 
-import { ComingSoonModal } from "@/components/ComingSoonModal";
+import { AuthModal } from "@/components/auth/AuthModal";
 import FAQSection from "@/components/faq-section";
 import FeaturesSection from "@/components/features-section";
 import HowItWorks from "@/components/how-it-works";
@@ -147,7 +147,8 @@ export default function Home() {
         <PricingSection openModal={openModal} />
         <FAQSection openModal={openModal} />
       </div>
-      <ComingSoonModal open={isModalOpen} onOpenChange={setIsModalOpen} />
+      {/* <ComingSoonModal open={isModalOpen} onOpenChange={setIsModalOpen} /> */}
+      <AuthModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 }
