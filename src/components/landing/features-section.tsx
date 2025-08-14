@@ -9,7 +9,7 @@ import {
   Sparkles,
   Zap,
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const FeaturesSection = () => {
   const features = [

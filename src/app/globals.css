@@ -87,7 +87,7 @@
 }
 
 @layer components {
-
+  
 
   .terminal-window {
     @apply relative shadow-xl rounded-2xl bg-background border-border shadow-green-800/60;
