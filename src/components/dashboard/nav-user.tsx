@@ -90,8 +90,8 @@ export function NavUser({ user }: NavUserProps) {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
-              <LogOut />
+            <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })} className="text-red-500 focus:text-red-500">
+              <LogOut className="text-red-500 "/>
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
