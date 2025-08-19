@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     siteName: "GitAway",
     images: [
       {
-        url: "/og-image.png", // recommended size: 1200x630
+        url: "https://git-away.vercel.app/og-image.png", // recommended size: 1200x630
         width: 1200,
         height: 630,
         alt: "GitAway – GitHub Streak Saver",
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
     title: "GitAway – Keep Your GitHub Streak Alive",
     description:
       "Keep your GitHub contribution graph green even while you're on vacation. Smart commit scheduling, AI messages, and streak protection.",
-    images: ["/og-image.png"],
+    images: ["https://git-away.vercel.app/og-image.png"],
     creator: "@MitulSonagara",
   },
   icons: {
