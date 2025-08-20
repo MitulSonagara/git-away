@@ -39,12 +39,9 @@ export default function ContributionGraph({
   }
 
   return (
-    <Card className="max-w-5xl bg-card">
+    <Card className="bg-card/20 gap-4">
       <CardHeader>
-        <CardTitle>Your Contributions</CardTitle>
-        <CardDescription>
-          {calendar.totalContributions} contributions in the last year
-        </CardDescription>
+        <CardTitle className="text-xl">Your Contributions</CardTitle>
       </CardHeader>
 
       <CardContent>
@@ -61,7 +58,7 @@ export default function ContributionGraph({
                           style={{
                             backgroundColor:
                               day.contributionCount === 0
-                                ? "rgb(3, 7, 15, 0.6)" // dark neutral for 0 contributions
+                                ? "rgb(145, 152, 166, 0.2)" // dark neutral for 0 contributions
                                 : day.color,
                           }}
                         />
@@ -77,22 +74,26 @@ export default function ContributionGraph({
           </div>
         </div>
 
-        {/* Legend */}
-        {calendar.colors && (
-          <div className="flex items-center justify-end mt-4 text-xs text-muted-foreground gap-2">
-            <span>Less</span>
-            <div className="flex gap-1">
-              {calendar.colors.map((c, i) => (
-                <div
-                  key={i}
-                  className="w-3 h-3 rounded-[3px]"
-                  style={{ backgroundColor: c }}
-                />
-              ))}
-            </div>
-            <span>More</span>
+        <div className="flex justify-between">
+          <div className="mt-2 text-sm text-muted-foreground gap-2">
+            {calendar.totalContributions} contributions in the last year
           </div>
-        )}
+          {calendar.colors && (
+            <div className="flex items-center justify-end mt-2 text-xs text-muted-foreground gap-2">
+              <span>Less</span>
+              <div className="flex gap-1">
+                {calendar.colors.map((c, i) => (
+                  <div
+                    key={i}
+                    className="w-3 h-3 rounded-[3px]"
+                    style={{ backgroundColor: c }}
+                  />
+                ))}
+              </div>
+              <span>More</span>
+            </div>
+          )}
+        </div>
       </CardContent>
     </Card>
   );
