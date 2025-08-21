@@ -46,9 +46,9 @@ export function NavUser({ user }: NavUserProps) {
                 {image && <AvatarImage src={image} alt={name} />}
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{name}</span>
-                <span className="text-muted-foreground truncate text-xs">
+              <div className="grid flex-1 text-sm leading-tight text-left">
+                <span className="font-medium truncate">{name}</span>
+                <span className="text-xs truncate text-muted-foreground">
                   {email}
                 </span>
               </div>
@@ -66,9 +66,9 @@ export function NavUser({ user }: NavUserProps) {
                   {image && <AvatarImage src={image} alt={name} />}
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{name}</span>
-                  <span className="text-muted-foreground truncate text-xs">
+                <div className="grid flex-1 text-sm leading-tight text-left">
+                  <span className="font-medium truncate">{name}</span>
+                  <span className="text-xs truncate text-muted-foreground">
                     {email}
                   </span>
                 </div>

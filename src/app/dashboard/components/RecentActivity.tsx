@@ -37,17 +37,12 @@ const mockData = {
       message: "16 commits scheduled for my-awesome-project",
       time: "2 hours ago",
     },
-    {
-      type: "streak_milestone",
-      message: "Reached 47-day streak! 🎉",
-      time: "1 day ago",
-    },
   ],
 };
 
 export default function RecentActivity() {
   return (
-    <Card className="bg-card/20 gap-4">
+    <Card className="gap-4 bg-card/20">
       <CardHeader>
         <CardTitle className="text-xl">Recent Activity</CardTitle>
       </CardHeader>
@@ -55,7 +50,7 @@ export default function RecentActivity() {
         <div className="space-y-4">
           {mockData.recentActivity.map((activity, index) => (
             <div key={index} className="flex items-start gap-3">
-              <div className="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
+              <div className="flex-shrink-0 w-2 h-2 mt-2 bg-green-400 rounded-full"></div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm">{activity.message}</p>
                 <p className="text-xs text-muted-foreground">{activity.time}</p>
