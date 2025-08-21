@@ -50,7 +50,7 @@ export default function PricingSection() {
                   Pro Plan{" "}
                   <Badge
                     variant="secondary"
-                    className="bg-green-100 text-green-700"
+                    className="text-green-700 bg-green-100"
                   >
                     Most Popular
                   </Badge>
@@ -61,7 +61,7 @@ export default function PricingSection() {
               </CardHeader>
 
               <CardContent>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+                <div className="flex flex-col items-center justify-center gap-4 mb-6 sm:flex-row">
                   <div className="text-4xl font-bold">
                     $5<span className="text-lg font-normal">/mo</span>
                   </div>
@@ -88,7 +88,7 @@ export default function PricingSection() {
                 >
                   Start Free for 30 Days
                 </Button>
-                <p className="text-sm text-muted-foreground text-center">
+                <p className="text-sm text-center text-muted-foreground">
                   No credit card required • Cancel anytime
                 </p>
               </CardFooter>

@@ -22,7 +22,7 @@ export default function ContributionGraph({
 }) {
   if (!calendar) {
     return (
-      <Card className="p-6 text-center">
+      <Card className="p-4 text-center">
         <CardHeader>
           <CardTitle>Your Contributions</CardTitle>
           <CardDescription>
@@ -39,7 +39,7 @@ export default function ContributionGraph({
   }
 
   return (
-    <Card className="bg-card/20 gap-4">
+    <Card className="gap-4 bg-card/20">
       <CardHeader>
         <CardTitle className="text-xl">Your Contributions</CardTitle>
       </CardHeader>
@@ -75,11 +75,11 @@ export default function ContributionGraph({
         </div>
 
         <div className="flex justify-between">
-          <div className="mt-2 text-sm text-muted-foreground gap-2">
+          <div className="gap-2 mt-2 text-sm text-muted-foreground">
             {calendar.totalContributions} contributions in the last year
           </div>
           {calendar.colors && (
-            <div className="flex items-center justify-end mt-2 text-xs text-muted-foreground gap-2">
+            <div className="flex items-center justify-end gap-2 mt-2 text-xs text-muted-foreground">
               <span>Less</span>
               <div className="flex gap-1">
                 {calendar.colors.map((c, i) => (

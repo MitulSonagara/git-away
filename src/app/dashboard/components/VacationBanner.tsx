@@ -10,11 +10,11 @@ export default function VacationBanner({
   isVacationActive: boolean;
 }) {
   return (
-    <Card className="bg-card/20">
+    <Card className="py-0 bg-card/20">
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold mb-2">
+            <h2 className="mb-2 text-2xl font-bold">
               Welcome back, {userName}! 🌴
             </h2>
             <p className="text-muted-foreground">

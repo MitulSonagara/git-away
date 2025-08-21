@@ -76,14 +76,14 @@ const FAQSection = () => {
           </div>
 
           {/* FAQ Two-Column Layout */}
-          <div className="max-w-6xl mx-auto grid gap-8 md:grid-cols-2">
+          <div className="grid max-w-6xl gap-8 mx-auto md:grid-cols-2">
             {/* Left column */}
             <Accordion type="single" collapsible className="space-y-4">
               {leftColumn.map((faq, index) => (
                 <AccordionItem
                   key={`left-${index}`}
                   value={`left-${index}`}
-                  className="px-6 rounded-lg bg-card/50 border last:border-b"
+                  className="px-6 border rounded-lg bg-card/50 last:border-b"
                 >
                   <AccordionTrigger className="text-left transition-colors hover:no-underline hover:text-green-400">
                     <span className="font-semibold">{faq.question}</span>
@@ -101,7 +101,7 @@ const FAQSection = () => {
                 <AccordionItem
                   key={`right-${index}`}
                   value={`right-${index}`}
-                  className="px-6 rounded-lg bg-card/50 border last:border-b"
+                  className="px-6 border rounded-lg bg-card/50 last:border-b"
                 >
                   <AccordionTrigger className="text-left transition-colors hover:no-underline hover:text-green-400">
                     <span className="font-semibold">{faq.question}</span>
@@ -115,7 +115,7 @@ const FAQSection = () => {
           </div>
 
           {/* Bottom CTA cards */}
-          <div className="max-w-6xl mx-auto mt-10 grid gap-6 md:grid-cols-2">
+          <div className="grid max-w-6xl gap-6 mx-auto mt-10 md:grid-cols-2">
             <Card>
               <CardHeader>
                 <CardTitle>Need More Help?</CardTitle>
@@ -134,7 +134,7 @@ const FAQSection = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-800">
+            <Card className="border-green-200 bg-green-50 dark:bg-green-950/20 dark:border-green-800">
               <CardHeader>
                 <CardTitle className="text-green-600 dark:text-green-400">
                   Try GitAway Free
@@ -145,7 +145,7 @@ const FAQSection = () => {
               </CardHeader>
               <CardContent>
                 <Button
-                  className="w-full bg-green-500 hover:bg-green-600 text-white"
+                  className="w-full text-white bg-green-500 hover:bg-green-600"
                   onClick={() => setIsModalOpen(true)}
                 >
                   Start Free Trial

@@ -90,7 +90,7 @@ const FeaturesSection = () => {
   return (
     <section className="relative py-12 sm:py-16 lg:py-20 ">
       <div className="px-4 mx-auto">
-        <div className="mx-auto max-w-7xl px-4">
+        <div className="px-4 mx-auto max-w-7xl">
           <div className="mb-12 text-center sm:mb-16">
             <h2 className="mb-4 text-4xl font-bold md:text-5xl">
               Features that keep your streak{" "}
