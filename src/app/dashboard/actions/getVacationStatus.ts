@@ -12,7 +12,7 @@ export async function getVacationStatus() {
 
   const user = await prisma.user.findUnique({
     where: { email: session.user.email },
-    select: {
+    select: { 
       name: true,
       scheduledJobs: {
         where: {

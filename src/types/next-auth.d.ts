@@ -1,6 +1,5 @@
 import NextAuth, { DefaultSession, DefaultUser } from "next-auth";
 
-// Extend the built-in session and user types
 declare module "next-auth" {
   interface Session {
     user?: {
@@ -8,11 +7,15 @@ declare module "next-auth" {
       name?: string;
       email?: string;
       image?: string;
-      role?: string;
+      username?: string;
     } & DefaultSession["user"];
+
+    accessToken?: string;
   }
 
-  interface User extends DefaultUser {
-    role: string;
+  interface JWT {
+    id?: string;
+    username?: string;
+    accessToken?: string;
   }
 }

@@ -1,7 +1,26 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, Calendar, GitBranch } from "lucide-react";
+import { AlertTriangle, Calendar, GitBranch, Loader2 } from "lucide-react";
+import { emergencyCommit } from "../actions/emergencyCommit";
+import { toast } from "sonner";
+import { useTransition } from "react";
 
 const QuickActions = () => {
+  const [isPending, startTransition] = useTransition();
+
+  const handleEmergencyClick = () => {
+    startTransition(async () => {
+      const res = await emergencyCommit();
+
+      if (!res.success) {
+        toast.error(`Commit failed: ${res.message}`);
+      } else {
+        toast.success(`${res.message}`);
+      }
+    });
+  };
+
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
       {/* Schedule Vacation */}
@@ -27,12 +46,24 @@ const QuickActions = () => {
       </Button>
 
       {/* Emergency Commit */}
-      <Button className="h-auto p-4 text-red-600 shadow-sm cursor-pointer bg-red-500/10 hover:bg-red-500/20 rounded-xl">
+      <Button
+        className="h-auto p-4 text-red-600 shadow-sm cursor-pointer bg-red-500/10 hover:bg-red-500/20 rounded-xl"
+        onClick={handleEmergencyClick}
+        disabled={isPending}
+      >
         <div className="flex items-center gap-3">
-          <AlertTriangle className="!h-6 !w-6" />
+          {isPending ? (
+            <Loader2 className="!h-6 !w-6 animate-spin text-red-600" />
+          ) : (
+            <AlertTriangle className="!h-6 !w-6 animate-pulse text-red-600" />
+          )}
           <div className="text-left">
-            <div className="text-lg font-semibold">Emergency Commit</div>
-            <div className="text-sm opacity-80">Rescue your streak now</div>
+            <div className="text-lg font-semibold">
+              {isPending ? "Committing..." : "Emergency Commit"}
+            </div>
+            <div className="text-sm opacity-80">
+              {isPending ? "Hold tight ⏳" : "Rescue your streak now"}
+            </div>
           </div>
         </div>
       </Button>
