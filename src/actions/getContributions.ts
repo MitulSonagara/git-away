@@ -8,10 +8,9 @@ const GITHUB_GRAPHQL_API = "https://api.github.com/graphql";
 export async function getContributions() {
   const session = await auth();
   if (!session?.user?.email) {
-    return null; // not logged in
+    return null;
   }
 
-  // get the user's GitHub access token from Account table
   const account = await prisma.account.findFirst({
     where: {
       user: { email: session.user.email },
@@ -21,7 +20,7 @@ export async function getContributions() {
   });
 
   if (!account?.access_token) {
-    return null; // GitHub not linked
+    return null;
   }
 
   const query = `
@@ -54,7 +53,7 @@ export async function getContributions() {
   });
 
   if (!res.ok) {
-    return null; // fail silently instead of breaking dashboard
+    return null;
   }
 
   const data = await res.json();

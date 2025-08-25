@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, Calendar, GitBranch, Loader2 } from "lucide-react";
-import { emergencyCommit } from "../actions/emergencyCommit";
+import { emergencyCommit } from "@/actions/emergencyCommit";
 import { toast } from "sonner";
 import { useTransition } from "react";
 
@@ -14,7 +14,7 @@ const QuickActions = () => {
       const res = await emergencyCommit();
 
       if (!res.success) {
-        toast.error(`Commit failed: ${res.message}`);
+        toast.error(`Commit failed: ${res.error}`);
       } else {
         toast.success(`${res.message}`);
       }
@@ -23,7 +23,6 @@ const QuickActions = () => {
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-      {/* Schedule Vacation */}
       <Button className="h-auto p-4 text-blue-600 shadow-sm cursor-pointer bg-blue-500/10 hover:bg-blue-500/20 rounded-xl">
         <div className="flex items-center gap-3">
           <Calendar className="!w-6 !h-6" />

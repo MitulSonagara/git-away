@@ -1,15 +1,13 @@
+import { calculateStreaks } from "@/actions/calculateStreaks";
+import { getContributions } from "@/actions/getContributions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertTriangle, Flame, Plane, Zap } from "lucide-react";
 
-interface StateCardsProps {
-  currentStreak: number;
-  longestStreak: number;
-}
+export default async function StateCards() {
+  const contributionCalendar = await getContributions();
 
-export default function StateCards({
-  currentStreak,
-  longestStreak,
-}: StateCardsProps) {
+  const { currentStreak, longestStreak } =
+    calculateStreaks(contributionCalendar);
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Card className="bg-card/20">

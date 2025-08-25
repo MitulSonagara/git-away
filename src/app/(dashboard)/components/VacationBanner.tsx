@@ -1,21 +1,16 @@
-"use client";
-
+import { getVacationStatus } from "@/actions/getVacationStatus";
 import { Card, CardContent } from "@/components/ui/card";
 
-export default function VacationBanner({
-  userName,
-  isVacationActive,
-}: {
-  userName: string;
-  isVacationActive: boolean;
-}) {
+export default async function VacationBanner() {
+  const { name, isVacationActive } = await getVacationStatus();
+
   return (
     <Card className="py-0 bg-card/20">
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="mb-2 text-2xl font-bold">
-              Welcome back, {userName}! 🌴
+              Welcome back, {name}! 🌴
             </h2>
             <p className="text-muted-foreground">
               {isVacationActive

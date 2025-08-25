@@ -1,5 +1,3 @@
-"use client";
-
 import type { ContributionCalendar } from "@/types/github";
 import {
   Tooltip,
@@ -14,12 +12,11 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
+import { getContributions } from "@/actions/getContributions";
 
-export default function ContributionGraph({
-  calendar,
-}: {
-  calendar: ContributionCalendar | null;
-}) {
+export default async function ContributionGraph() {
+  const calendar: ContributionCalendar | null = await getContributions();
+
   if (!calendar) {
     return (
       <Card className="p-4 text-center">
