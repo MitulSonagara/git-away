@@ -72,11 +72,8 @@ model Account {
 model Repo {
   id             String    @id @default(cuid())
   userId         String
-  repoFullName   String
-  repoIdExternal String?
-  isPrivate      Boolean   @default(false)
-  active         Boolean   @default(true)
-  lastCommitAt   DateTime?
+  externalRepoId String
+  active         Boolean   @default(false)
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
@@ -86,7 +83,7 @@ model Repo {
   repoSettings     RepoSetting[]
   emergencyCommits EmergencyCommit[]
 
-  @@unique([repoFullName, userId])
+  @@unique([userId, externalRepoId])
   @@index([userId])
 }
 

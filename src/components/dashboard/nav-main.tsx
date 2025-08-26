@@ -18,7 +18,7 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-const navMain = [
+export const navMainList = [
   {
     title: "Dashboard",
     url: "/dashboard",
@@ -37,7 +37,7 @@ export function NavMain() {
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
-          {navMain.map((item) => {
+          {navMainList.map((item) => {
             const isActive = pathname === item.url;
 
             return (
