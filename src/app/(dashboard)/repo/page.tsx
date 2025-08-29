@@ -1,7 +1,9 @@
-"use client";
 import ConnectRepoModal from "@/components/ConnectRepoModal";
+import RepoList from "@/components/RepoList";
+import RepoListSkeleton from "@/components/skeleton/RepoListSkeleton";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { Suspense } from "react";
 
 export default function Page() {
   return (
@@ -21,6 +23,10 @@ export default function Page() {
           </Button>
         </div>
       </div>
+
+      <Suspense fallback={<RepoListSkeleton />}>
+        <RepoList />
+      </Suspense>
     </div>
   );
 }

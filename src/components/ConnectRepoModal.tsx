@@ -8,6 +8,7 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
+import { formatUpdatedAt } from "@/lib/utils";
 
 enum LoadingState {
   IDLE = "idle",
@@ -94,7 +95,6 @@ const ConnectRepoModal = () => {
 
     try {
       await saveUserRepos([...selected]);
-      console.log(selected);
       toast.success("Repositories connected");
 
       setOpen(false);
@@ -184,7 +184,7 @@ const ConnectRepoModal = () => {
                           </p>
                         )}
                         <p className="text-xs text-muted-foreground mt-1">
-                          Updated {new Date(repo.updatedAt).toLocaleString()}
+                          {formatUpdatedAt(repo.updatedAt)}
                         </p>
                       </div>
                     </div>

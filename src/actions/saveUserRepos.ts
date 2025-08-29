@@ -16,7 +16,6 @@ export async function saveUserRepos(selectedRepoIds: string[]) {
   if (!user) throw new Error("User not found");
 
   for (const repoId of selectedRepoIds) {
-    console.log(repoId)
     await prisma.repo.upsert({
       where: {
         userId_externalRepoId: {

@@ -116,12 +116,6 @@ export async function getRepos({
       before,
     });
 
-    console.log("PageInfo:", response.viewer.repositories.pageInfo);
-    console.log(
-      "Repositories count:",
-      response.viewer.repositories.nodes
-    );
-
     return {
       success: true,
       repos: response.viewer.repositories.nodes,
