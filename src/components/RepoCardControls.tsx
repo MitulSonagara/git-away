@@ -21,7 +21,7 @@ export const RepoCardControls = ({ active }: RepoCardControlsProps) => {
           onCheckedChange={() => console.log("clicked switch")}
         />
       </div>
-      {active && (
+      {/* {active && ( */}
         <Button
           variant="ghost"
           size="icon"
@@ -29,7 +29,7 @@ export const RepoCardControls = ({ active }: RepoCardControlsProps) => {
         >
           <Settings className="w-4 h-4" />
         </Button>
-      )}
+      {/* )} */}
     </div>
   );
 };

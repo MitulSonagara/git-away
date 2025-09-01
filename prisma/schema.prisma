@@ -70,18 +70,19 @@ model Account {
 }
 
 model Repo {
-  id             String    @id @default(cuid())
+  id             String   @id @default(cuid())
   userId         String
   externalRepoId String
-  active         Boolean   @default(false)
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  active         Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   scheduledJobs    ScheduledJob[]
   commitLogs       CommitLog[]
   repoSettings     RepoSetting[]
   emergencyCommits EmergencyCommit[]
+  selectedFiles    RepoFile[]
 
   @@unique([userId, externalRepoId])
   @@index([userId])
@@ -171,4 +172,15 @@ model AuditLog {
   user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt])
+}
+
+model RepoFile {
+  id     String @id @default(cuid())
+  repoId String
+  path   String
+  sha    String
+  repo   Repo   @relation(fields: [repoId], references: [id], onDelete: Cascade)
+
+  @@unique([repoId, path])
+  @@index([repoId])
 }
