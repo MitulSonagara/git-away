@@ -11,10 +11,9 @@ interface RepoQueryResponse {
 
 export interface ConnectedRepo {
   id: string; // local DB id
+  userId: string;
   externalRepoId: string; // GitHub node_id
   active: boolean;
-  createdAt: Date;
-  updatedAt: Date;
   github: {
     id: string;
     name: string;
@@ -104,7 +103,7 @@ export async function getConnectedRepos(): Promise<GetConnectedReposResult> {
         }
       })
     );
-  // await new Promise((resolve) => setTimeout(resolve, 100000))
+    // await new Promise((resolve) => setTimeout(resolve, 100000))
     return { success: true, repos: repoDetails };
   } catch (error) {
     if (error instanceof RequestError) {

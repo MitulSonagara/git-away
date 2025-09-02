@@ -2,6 +2,8 @@
 
 import { ConnectedRepo } from "@/actions/getConnectedRepos";
 import { getRepoContent } from "@/actions/getRepoContent";
+import { getRepoFiles } from "@/actions/getRepoFiles"; // Import the new action
+import { saveRepoFiles } from "@/actions/saveRepoFiles";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -12,9 +14,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
 import { ChevronLeft, File, Folder, Loader2 } from "lucide-react";
-import { useEffect, useState, useTransition } from "react";
+import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { toast } from "sonner";
 
 interface GitHubContent {
@@ -37,7 +38,10 @@ interface GitHubContent {
 }
 
 interface FileBrowserModalProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
   repo: ConnectedRepo;
+  onFilesSelected: () => void;
 }
 
 interface BreadcrumbItem {
@@ -45,8 +49,12 @@ interface BreadcrumbItem {
   path: string;
 }
 
-export default function FileBrowserModal({ repo }: FileBrowserModalProps) {
-  const [open, setOpen] = useState<boolean>(false);
+export default function FileBrowserModal({
+  open,
+  onOpenChange,
+  repo,
+  onFilesSelected,
+}: FileBrowserModalProps) {
   const [contents, setContents] = useState<GitHubContent[]>([]);
   const [currentPath, setCurrentPath] = useState("");
   const [breadcrumbs, setBreadcrumbs] = useState<BreadcrumbItem[]>([
@@ -56,68 +64,123 @@ export default function FileBrowserModal({ repo }: FileBrowserModalProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isPending, startTransition] = useTransition();
 
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    if (open && repo.id) {
+      loadExistingFiles();
+    }
+  }, [open, repo.id]);
+
   useEffect(() => {
     if (open && repo.github) {
       loadContent("");
     }
   }, [open, repo.github]);
 
-  const loadContent = async (path: string) => {
-    if (!repo.github) return;
-
-    setIsLoading(true);
+  const loadExistingFiles = useCallback(async () => {
     try {
-      const result = await getRepoContent(repo.github.nameWithOwner, path);
+      const result = await getRepoFiles(repo.id);
 
-      if (result.success && result.contents) {
-        setContents(result.contents);
-        setCurrentPath(path);
-      } else {
-        toast.error(result.error || "Failed to load repository content");
+      if (result.success && result.files) {
+        const existingFileKeys = new Set(
+          result.files.map((file) => `${file.sha}:${file.path}`)
+        );
+        setSelectedFiles(existingFileKeys);
+
+      } else if (result.error) {
+        toast.error(result.error);
       }
     } catch (error) {
-      toast.error("Failed to load repository content");
-      console.error("Error loading content:", error);
-    } finally {
-      setIsLoading(false);
+      console.error("Error loading existing files:", error);
+      toast.error("Failed to load existing file selection");
     }
-  };
+  }, [repo.id]);
 
-  const navigateToFolder = (folderPath: string, folderName: string) => {
-    const newBreadcrumbs = [...breadcrumbs];
-    const existingIndex = newBreadcrumbs.findIndex(
-      (b) => b.path === folderPath
-    );
+  const loadContent = useCallback(
+    async (path: string) => {
+      if (!repo.github) return;
 
-    if (existingIndex !== -1) {
-      setBreadcrumbs(newBreadcrumbs.slice(0, existingIndex + 1));
-    } else {
-      newBreadcrumbs.push({ name: folderName, path: folderPath });
-      setBreadcrumbs(newBreadcrumbs);
-    }
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
 
-    loadContent(folderPath);
-  };
+      const abortController = new AbortController();
+      abortControllerRef.current = abortController;
 
-  const toggleFileSelection = (sha: string, path: string) => {
-    const newSelected = new Set(selectedFiles);
-    const fileKey = `${sha}:${path}`;
+      setIsLoading(true);
 
-    if (newSelected.has(fileKey)) {
-      newSelected.delete(fileKey);
-    } else {
-      newSelected.add(fileKey);
-    }
-    setSelectedFiles(newSelected);
-  };
+      try {
+        const result = await getRepoContent(repo.github.nameWithOwner, path);
 
-  const formatFileSize = (bytes: number) => {
+        if (abortController.signal.aborted) {
+          return;
+        }
+
+        if (result.success && result.contents) {
+          setContents(result.contents);
+          setCurrentPath(path);
+        } else {
+          toast.error(result.error || "Failed to load repository content");
+        }
+      } catch (error) {
+        // Ignore aborted requests
+        if (abortController.signal.aborted) {
+          return;
+        }
+
+        toast.error("Failed to load repository content");
+        console.error("Error loading content:", error);
+      } finally {
+        // Only update loading state if request wasn't cancelled
+        if (!abortController.signal.aborted) {
+          setIsLoading(false);
+        }
+      }
+    },
+    [repo.github]
+  );
+
+  const navigateToFolder = useCallback(
+    (folderPath: string, folderName: string) => {
+      const newBreadcrumbs = [...breadcrumbs];
+      const existingIndex = newBreadcrumbs.findIndex(
+        (b) => b.path === folderPath
+      );
+
+      if (existingIndex !== -1) {
+        setBreadcrumbs(newBreadcrumbs.slice(0, existingIndex + 1));
+      } else {
+        newBreadcrumbs.push({ name: folderName, path: folderPath });
+        setBreadcrumbs(newBreadcrumbs);
+      }
+
+      loadContent(folderPath);
+    },
+    [breadcrumbs, loadContent]
+  );
+
+  const toggleFileSelection = useCallback((sha: string, path: string) => {
+    setSelectedFiles((prev) => {
+      const newSelected = new Set(prev);
+      const fileKey = `${sha}:${path}`;
+
+      if (newSelected.has(fileKey)) {
+        newSelected.delete(fileKey);
+      } else {
+        newSelected.add(fileKey);
+      }
+      return newSelected;
+    });
+  }, []);
+
+  const formatFileSize = useCallback((bytes: number) => {
     if (bytes === 0) return "0 B";
     const k = 1024;
     const sizes = ["B", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
-  };
+  }, []);
 
   const handleSave = () => {
     if (selectedFiles.size === 0) {
@@ -132,8 +195,15 @@ export default function FileBrowserModal({ repo }: FileBrowserModalProps) {
           return { sha, path };
         });
 
-        console.log("fileData: ", fileData);
-        // Implement save logic here
+        const result = await saveRepoFiles(repo.id, fileData);
+
+        if (result.success) {
+          toast.success(`${result.savedCount} files saved successfully`);
+          onFilesSelected();
+          handleClose();
+        } else {
+          toast.error(result.error || "Failed to save files");
+        }
       } catch (error) {
         toast.error("Failed to save files");
         console.error("Error saving files:", error);
@@ -141,17 +211,34 @@ export default function FileBrowserModal({ repo }: FileBrowserModalProps) {
     });
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleClose = useCallback(() => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    onOpenChange(false);
+    setBreadcrumbs([{ name: "Root", path: "" }]);
+    setCurrentPath("");
+    setContents([]);
+    setIsLoading(false);
+  }, [onOpenChange]);
+
+  const resetModal = useCallback(() => {
     setSelectedFiles(new Set());
     setBreadcrumbs([{ name: "Root", path: "" }]);
     setCurrentPath("");
     setContents([]);
-  };
+    setIsLoading(false);
+  }, []);
+
+  // Reset modal state when it closes completely
+  useEffect(() => {
+    if (!open) {
+      resetModal();
+    }
+  }, [open, resetModal]);
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>o</Button>
       <Dialog open={open} onOpenChange={handleClose}>
         <DialogContent className="max-w-5xl h-[85vh] flex flex-col p-0 gap-0">
           <DialogHeader className="px-6 py-4 border-b flex-shrink-0">
@@ -185,7 +272,7 @@ export default function FileBrowserModal({ repo }: FileBrowserModalProps) {
                             loadContent(crumb.path);
                           }
                         }}
-                        disabled={index === breadcrumbs.length - 1}
+                        disabled={index === breadcrumbs.length - 1 || isLoading}
                       >
                         {crumb.name}
                       </Button>
@@ -196,7 +283,6 @@ export default function FileBrowserModal({ repo }: FileBrowserModalProps) {
               </ScrollArea>
             </div>
 
-            {/* File List Container with Fixed Height */}
             <div className="flex-1 min-h-0">
               <ScrollArea className="h-full w-full">
                 <div className="p-0">
@@ -211,7 +297,6 @@ export default function FileBrowserModal({ repo }: FileBrowserModalProps) {
                     </div>
                   ) : (
                     <div>
-
                       {/* Folders */}
                       {contents
                         .filter((item) => item.type === "dir")
@@ -220,6 +305,7 @@ export default function FileBrowserModal({ repo }: FileBrowserModalProps) {
                             key={item.path}
                             className="grid grid-cols-12 gap-4 px-4 py-1.5 hover:bg-accent/50 cursor-pointer border-b border-border/30 text-sm"
                             onClick={() =>
+                              !isLoading &&
                               navigateToFolder(item.path, item.name)
                             }
                           >

@@ -6,6 +6,7 @@ import { formatUpdatedAt } from "@/lib/utils";
 import { Clock, ExternalLink, GitBranch, GitFork, Star } from "lucide-react";
 import Link from "next/link";
 import FileBrowserModal from "./FileBrowserModal";
+import { getConnectedRepos } from "@/actions/getConnectedRepos";
 
 const dummyResult = {
   success: true,
@@ -60,11 +61,11 @@ const dummyResult = {
 };
 
 const RepoList = async () => {
-  // const result = await getConnectedRepos();
+  const result = await getConnectedRepos();
 
-  const result = await new Promise<typeof dummyResult>((resolve) =>
-    setTimeout(() => resolve(dummyResult), 10000)
-  );
+  // const result = await new Promise<typeof dummyResult>((resolve) =>
+  //   setTimeout(() => resolve(dummyResult), 10000)
+  // );
 
   if (!result.success) {
     return <div className="text-center text-red-500"></div>;
@@ -115,7 +116,7 @@ const RepoList = async () => {
                   )}
                 </div>
 
-                <RepoCardControls active={repo.active} />
+                <RepoCardControls repo={repo} />
               </div>
 
               <div className="flex items-center gap-6 mb-4 text-sm text-muted-foreground">
@@ -146,8 +147,6 @@ const RepoList = async () => {
                     : "N/A"}
                 </div>
               </div>
-
-              <FileBrowserModal repo={repo} />
             </div>
           </CardContent>
         </Card>

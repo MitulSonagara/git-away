@@ -3,6 +3,7 @@
 import { auth } from "@/lib/auth";
 import { handleGitHubError } from "@/lib/errorHandler";
 import { prisma } from "@/lib/prisma";
+import { unstable_cache } from "next/cache";
 import { Octokit, RequestError } from "octokit";
 
 interface GitHubContent {
@@ -45,6 +46,45 @@ interface SaveRepoFilesResult {
   success: boolean;
   error?: string;
 }
+async function fetchRepoContentFromGitHub(
+  accessToken: string,
+  nameWithOwner: string,
+  path: string
+): Promise<GitHubContent[]> {
+  const [owner, repoName] = nameWithOwner.split("/");
+  const octokit = new Octokit({ auth: accessToken });
+
+  const { data } = await octokit.rest.repos.getContent({
+    owner,
+    repo: repoName,
+    path,
+  });
+
+  const contents = Array.isArray(data) ? data : [data];
+
+  return contents.filter(
+    (item) =>
+      item &&
+      typeof item === "object" &&
+      "name" in item &&
+      "type" in item &&
+      "sha" in item
+  ) as GitHubContent[];
+}
+
+function makeCachedRepoContent(nameWithOwner: string, path: string) {
+  return unstable_cache(
+    async (accessToken: string) => {
+      return fetchRepoContentFromGitHub(accessToken, nameWithOwner, path);
+    },
+    // key must be static here, but we can bake repo+path into it
+    [`repo-content:${nameWithOwner}:${path}`],
+    {
+      revalidate: 300,
+      tags: ["github-content"],
+    }
+  );
+}
 
 export async function getRepoContent(
   nameWithOwner: string,
@@ -56,31 +96,13 @@ export async function getRepoContent(
       return { success: false, error: "Not authenticated" };
     }
 
-    const [owner, repoName] = nameWithOwner.split("/");
-    const octokit = new Octokit({ auth: session.accessToken });
+    const getCachedRepoContent = makeCachedRepoContent(nameWithOwner, path);
 
-    const { data } = await octokit.rest.repos.getContent({
-      owner: owner || session.user.username,
-      repo: repoName,
-      path,
-    });
-
-    // Handle both single file and array responses
-    const contents = Array.isArray(data) ? data : [data];
-
-    // Filter out any items that don't have the expected structure
-    const validContents = contents.filter(
-      (item) =>
-        item &&
-        typeof item === "object" &&
-        "name" in item &&
-        "type" in item &&
-        "sha" in item
-    ) as GitHubContent[];
+    const contents = await getCachedRepoContent(session.accessToken);
 
     return {
       success: true,
-      contents: validContents,
+      contents,
     };
   } catch (error) {
     if (error instanceof RequestError) {
@@ -107,11 +129,9 @@ export async function checkRepoSettings(
       return { success: false, error: "Not authenticated" };
     }
 
-    // Check if repo belongs to user and if it has any files in settings
-
     const repo = await prisma.repo.findFirst({
       where: {
-        externalRepoId: repoId,
+        id: repoId,
         userId: session.user.id,
       },
       include: {
@@ -165,62 +185,3 @@ export async function toggleRepoActive(
     };
   }
 }
-
-// export async function saveRepoFiles(
-//   repoId: string,
-//   files: Array<{ sha: string; path: string }>
-// ): Promise<SaveRepoFilesResult> {
-//   try {
-//     const session = await auth();
-//     if (!session?.user?.id) {
-//       return { success: false, error: "Not authenticated" };
-//     }
-
-//     await prisma.$transaction(async (tx) => {
-//       // First, ensure repo settings exist
-//       const repoSettings = await tx.repo.upsert({
-//         where: { repoId },
-//         update: {},
-//         create: {
-//           repoId,
-//           // Add any default settings here
-//         },
-//       });
-
-//       // Delete existing files for this repo
-//       await tx.repoFile.deleteMany({
-//         where: { repoSettingsId: repoSettings.id },
-//       });
-
-//       // Insert new files
-//       if (files.length > 0) {
-//         await tx.repoFile.createMany({
-//           data: files.map((file) => ({
-//             repoSettingsId: repoSettings.id,
-//             filePath: file.path,
-//             fileSha: file.sha,
-//           })),
-//         });
-//       }
-
-//       // Activate the repo
-//       await tx.repo.update({
-//         where: {
-//           id: repoId,
-//           userId: session.user.id,
-//         },
-//         data: {
-//           active: true,
-//         },
-//       });
-//     });
-
-//     return { success: true };
-//   } catch (error) {
-//     console.error("Error saving repo files:", error);
-//     return {
-//       success: false,
-//       error: error instanceof Error ? error.message : "Failed to save files",
-//     };
-//   }
-// }
