@@ -25,7 +25,7 @@ export const navMainList = [
     icon: LayoutDashboard,
     isActive: true,
   },
-  { title: "Vacation Schedular", url: "#", icon: Calendar },
+  { title: "Vacation Schedular", url: "/schedular", icon: Calendar },
   { title: "Connected Repos", url: "/repo", icon: GitBranch },
   { title: "Commit Activity", url: "#", icon: Activity },
   { title: "Analytics", url: "#", icon: BarChart },
