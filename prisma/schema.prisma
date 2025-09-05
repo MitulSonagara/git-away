@@ -12,26 +12,6 @@ enum Role {
   ADMIN
 }
 
-enum CommitStatus {
-  SUCCESS
-  FAILED
-  SKIPPED
-}
-
-enum ScheduleStatus {
-  SCHEDULED
-  RUNNING
-  COMPLETED
-  FAILED
-}
-
-enum CommitStyle {
-  MINIMAL
-  TIMESTAMP
-  THEMED
-  INVISIBLE
-}
-
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -44,11 +24,7 @@ model User {
 
   accounts Account[]
 
-  repos            Repo[]
-  auditLogs        AuditLog[]
-  scheduledJobs    ScheduledJob[]
-  commitLogs       CommitLog[]
-  emergencyCommits EmergencyCommit[]
+  repos Repo[]
 }
 
 model Account {
@@ -77,101 +53,11 @@ model Repo {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  scheduledJobs    ScheduledJob[]
-  commitLogs       CommitLog[]
-  repoSettings     RepoSetting[]
-  emergencyCommits EmergencyCommit[]
-  selectedFiles    RepoFile[]
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  selectedFiles RepoFile[]
 
   @@unique([userId, externalRepoId])
   @@index([userId])
-}
-
-model RepoSetting {
-  id             String      @id @default(cuid())
-  repoId         String      @unique
-  timezone       String?     @default("UTC")
-  commitsPerWeek Int         @default(7)
-  preferredDays  Json? // array of weekdays or rules
-  commitStyle    CommitStyle @default(MINIMAL)
-  templates      Json? // user templates
-  enabled        Boolean     @default(true)
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
-
-  repo Repo @relation(fields: [repoId], references: [id], onDelete: Cascade)
-
-  @@index([repoId])
-}
-
-model ScheduledJob {
-  id        String         @id @default(cuid())
-  userId    String
-  repoId    String
-  nextRunAt DateTime
-  lastRunAt DateTime?
-  status    ScheduleStatus @default(SCHEDULED)
-  attempts  Int            @default(0)
-  metadata  Json?
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
-
-  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  repo       Repo        @relation(fields: [repoId], references: [id], onDelete: Cascade)
-  commitLogs CommitLog[]
-
-  @@index([nextRunAt])
-  @@index([userId, repoId])
-}
-
-model CommitLog {
-  id             String       @id @default(cuid())
-  scheduledJobId String?
-  userId         String
-  repoId         String
-  commitSha      String?
-  message        String
-  status         CommitStatus @default(SUCCESS)
-  response       Json? // response from GitHub API
-  createdAt      DateTime     @default(now())
-
-  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  repo         Repo          @relation(fields: [repoId], references: [id], onDelete: Cascade)
-  scheduledJob ScheduledJob? @relation(fields: [scheduledJobId], references: [id], onDelete: SetNull)
-
-  @@index([userId])
-  @@index([repoId])
-  @@index([scheduledJobId])
-}
-
-model EmergencyCommit {
-  id        String   @id @default(cuid())
-  userId    String
-  repoId    String
-  source    String // 'DASHBOARD' | 'EMAIL' | 'API'
-  message   String?
-  createdAt DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  repo Repo @relation(fields: [repoId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-  @@index([repoId])
-}
-
-model AuditLog {
-  id        String   @id @default(cuid())
-  userId    String?
-  action    String
-  meta      Json?
-  ip        String?
-  userAgent String?
-  createdAt DateTime @default(now())
-
-  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId, createdAt])
 }
 
 model RepoFile {

@@ -1,3 +1,4 @@
+import VacationSchedulerModal from "@/components/VacationSchedulerModal";
 
 export default function Page() {
   return (
@@ -8,6 +9,9 @@ export default function Page() {
           <p className="text-muted-foreground">
             Schedule commits to maintain your streak while you're away
           </p>
+        </div>
+        <div className="flex gap-2">
+          <VacationSchedulerModal />
         </div>
       </div>
     </div>

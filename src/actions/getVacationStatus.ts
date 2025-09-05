@@ -14,13 +14,13 @@ export async function getVacationStatus() {
     where: { email: session.user.email },
     select: {
       name: true,
-      scheduledJobs: {
-        where: {
-          status: { in: ["SCHEDULED", "RUNNING"] },
-          nextRunAt: { gte: new Date() },
-        },
-        take: 1, // we only need to know if any exist
-      },
+      // scheduledJobs: {
+      //   where: {
+      //     status: { in: ["SCHEDULED", "RUNNING"] },
+      //     nextRunAt: { gte: new Date() },
+      //   },
+      //   take: 1, // we only need to know if any exist
+      // },
     },
   });
 
@@ -28,6 +28,7 @@ export async function getVacationStatus() {
 
   return {
     name: user.name ?? "Developer",
-    isVacationActive: user.scheduledJobs.length > 0,
+    // isVacationActive: user.scheduledJobs.length > 0,
+    isVacationActive: true,
   };
 }
