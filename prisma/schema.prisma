@@ -22,9 +22,9 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  accounts Account[]
-
-  repos Repo[]
+  accounts  Account[]
+  repos     Repo[]
+  schedules Schedule[]
 }
 
 model Account {
@@ -53,8 +53,9 @@ model Repo {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   selectedFiles RepoFile[]
+  schedules     ScheduleRepo[]
 
   @@unique([userId, externalRepoId])
   @@index([userId])
@@ -65,8 +66,36 @@ model RepoFile {
   repoId String
   path   String
   sha    String
-  repo   Repo   @relation(fields: [repoId], references: [id], onDelete: Cascade)
+
+  repo Repo @relation(fields: [repoId], references: [id], onDelete: Cascade)
 
   @@unique([repoId, path])
+  @@index([repoId])
+}
+
+model Schedule {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  startDate DateTime
+  endDate   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user  User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  repos ScheduleRepo[]
+}
+
+model ScheduleRepo {
+  id         String   @id @default(cuid())
+  scheduleId String
+  repoId     String
+  createdAt  DateTime @default(now())
+
+  schedule Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+  repo     Repo     @relation(fields: [repoId], references: [id], onDelete: Cascade)
+
+  @@unique([scheduleId, repoId])
+  @@index([scheduleId])
   @@index([repoId])
 }
