@@ -85,7 +85,7 @@ export async function getConnectedRepos(): Promise<GetConnectedReposResult> {
     `;
 
     const repoDetails = await Promise.all(
-      repos.map(async (repo: ConnectedRepo) => {
+      repos.map(async (repo) => {
         try {
           const response = await octokit.graphql<RepoQueryResponse>(query, {
             repoId: repo.externalRepoId,
