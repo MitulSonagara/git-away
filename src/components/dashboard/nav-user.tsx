@@ -30,7 +30,7 @@ interface NavUserProps {
   user: Session["user"];
 }
 
-export function NavUser({ user }: NavUserProps) {
+export function NavUser({ user }: Readonly<NavUserProps>) {
   const { name, email, image } = user ?? {};
 
   return (
@@ -42,7 +42,7 @@ export function NavUser({ user }: NavUserProps) {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-10 w-10 rounded-full border-1 border-green-400 p-0.5">
+              <Avatar className="h-10 w-10 rounded-full border border-green-400 p-0.5">
                 {image && <AvatarImage src={image} alt={name} />}
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
@@ -62,7 +62,7 @@ export function NavUser({ user }: NavUserProps) {
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Avatar className="h-10 w-10 rounded-full border-1 border-green-400 p-0.5">
+                <Avatar className="h-10 w-10 rounded-full border border-green-400 p-0.5">
                   {image && <AvatarImage src={image} alt={name} />}
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
@@ -91,7 +91,7 @@ export function NavUser({ user }: NavUserProps) {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })} className="text-red-500 focus:text-red-500">
-              <LogOut className="text-red-500 "/>
+              <LogOut className="text-red-500 " />
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>

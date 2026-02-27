@@ -9,7 +9,6 @@ export async function emergencyCommit() {
 
   if (
     !session?.accessToken ||
-    !session.user ||
     !session.user?.username ||
     !session.user?.email
   ) {
@@ -32,7 +31,7 @@ export async function emergencyCommit() {
     if (!Array.isArray(data) && data.sha && data.type == "file") {
       sha = data.sha;
       const existingContent = Buffer.from(data.content, "base64").toString(
-        "utf8"
+        "utf8",
       );
 
       newContent = existingContent + "\nHello from next js 15";

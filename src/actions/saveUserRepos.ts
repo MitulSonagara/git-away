@@ -2,7 +2,6 @@
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { GitHubRepo } from "./getRepos";
 
 export async function saveUserRepos(selectedRepoIds: string[]) {
   const session = await auth();

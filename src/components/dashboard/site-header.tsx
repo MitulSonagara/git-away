@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 interface SiteHeaderProps {
   session: Session;
 }
-export function SiteHeader({ session }: SiteHeaderProps) {
+export function SiteHeader({ session }: Readonly<SiteHeaderProps>) {
   const user = session?.user;
   const pathname = usePathname();
 

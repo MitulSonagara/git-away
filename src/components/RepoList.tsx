@@ -1,3 +1,4 @@
+import { getConnectedRepos } from "@/actions/getConnectedRepos";
 import { RepoCardControls } from "@/components/RepoCardControls";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -5,8 +6,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { formatUpdatedAt } from "@/lib/utils";
 import { Clock, ExternalLink, GitBranch, GitFork, Star } from "lucide-react";
 import Link from "next/link";
-import FileBrowserModal from "./FileBrowserModal";
-import { getConnectedRepos } from "@/actions/getConnectedRepos";
 
 const dummyResult = {
   success: true,

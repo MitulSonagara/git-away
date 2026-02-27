@@ -13,10 +13,10 @@ const QuickActions = () => {
     startTransition(async () => {
       const res = await emergencyCommit();
 
-      if (!res.success) {
-        toast.error(`Commit failed: ${res.error}`);
-      } else {
+      if (res.success) {
         toast.success(`${res.message}`);
+      } else {
+        toast.error(`Commit failed: ${res.error}`);
       }
     });
   };
@@ -25,7 +25,7 @@ const QuickActions = () => {
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
       <Button className="h-auto p-4 text-blue-600 shadow-sm cursor-pointer bg-blue-500/10 hover:bg-blue-500/20 rounded-xl">
         <div className="flex items-center gap-3">
-          <Calendar className="!w-6 !h-6" />
+          <Calendar className="w-6! h-6!" />
           <div className="text-left">
             <div className="text-lg font-semibold">Schedule Vacation</div>
             <div className="text-sm opacity-80">Plan your next break</div>
@@ -36,7 +36,7 @@ const QuickActions = () => {
       {/* Connect Repo */}
       <Button className="h-auto p-4 text-green-600 shadow-sm cursor-pointer bg-green-500/10 hover:bg-green-500/20 rounded-xl">
         <div className="flex items-center gap-3">
-          <GitBranch className="!w-6 !h-6" />
+          <GitBranch className="w-6! h-6!" />
           <div className="text-left">
             <div className="text-lg font-semibold">Connect Repo</div>
             <div className="text-sm opacity-80">Add a new repository</div>
@@ -52,9 +52,9 @@ const QuickActions = () => {
       >
         <div className="flex items-center gap-3">
           {isPending ? (
-            <Loader2 className="!h-6 !w-6 animate-spin text-red-600" />
+            <Loader2 className="h-6! w-6! animate-spin text-red-600" />
           ) : (
-            <AlertTriangle className="!h-6 !w-6 animate-pulse text-red-600" />
+            <AlertTriangle className="h-6! w-6! animate-pulse text-red-600" />
           )}
           <div className="text-left">
             <div className="text-lg font-semibold">

@@ -85,7 +85,7 @@ export async function getConnectedRepos(): Promise<GetConnectedReposResult> {
     `;
 
     const repoDetails = await Promise.all(
-      repos.map(async (repo) => {
+      repos.map(async (repo: ConnectedRepo) => {
         try {
           const response = await octokit.graphql<RepoQueryResponse>(query, {
             repoId: repo.externalRepoId,
@@ -101,7 +101,7 @@ export async function getConnectedRepos(): Promise<GetConnectedReposResult> {
             github: null,
           } as ConnectedRepo;
         }
-      })
+      }),
     );
     // await new Promise((resolve) => setTimeout(resolve, 100000))
     return { success: true, repos: repoDetails };

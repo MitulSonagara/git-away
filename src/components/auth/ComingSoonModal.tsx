@@ -15,7 +15,7 @@ interface ComingSoonModalProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function ComingSoonModal({ open, onOpenChange }: ComingSoonModalProps) {
+export function ComingSoonModal({ open, onOpenChange }: Readonly<ComingSoonModalProps>) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">

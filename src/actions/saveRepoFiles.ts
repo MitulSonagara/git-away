@@ -16,7 +16,7 @@ interface SaveRepoFilesResult {
 
 export async function saveRepoFiles(
   repoId: string,
-  files: FileData[]
+  files: FileData[],
 ): Promise<SaveRepoFilesResult> {
   try {
     // Get the current user session
@@ -58,7 +58,7 @@ export async function saveRepoFiles(
         !file.sha ||
         !file.path ||
         typeof file.sha !== "string" ||
-        typeof file.path !== "string"
+        typeof file.path !== "string",
     );
 
     if (invalidFiles.length > 0) {
@@ -69,28 +69,38 @@ export async function saveRepoFiles(
     }
 
     // Use a transaction to ensure data consistency
-    const result = await prisma.$transaction(async (tx) => {
-      // First, delete existing files for this repo
-      await tx.repoFile.deleteMany({
-        where: {
+    const result = await prisma.$transaction(
+      async (tx: {
+        repoFile: {
+          deleteMany: (arg0: { where: { repoId: string } }) => any;
+          createMany: (arg0: {
+            data: { repoId: string; path: string; sha: string }[];
+            skipDuplicates: boolean;
+          }) => any;
+        };
+      }) => {
+        // First, delete existing files for this repo
+        await tx.repoFile.deleteMany({
+          where: {
+            repoId: repoId,
+          },
+        });
+
+        // Then insert the new files
+        const repoFilesToCreate = files.map((file) => ({
           repoId: repoId,
-        },
-      });
+          path: file.path,
+          sha: file.sha,
+        }));
 
-      // Then insert the new files
-      const repoFilesToCreate = files.map((file) => ({
-        repoId: repoId,
-        path: file.path,
-        sha: file.sha,
-      }));
+        const createResult = await tx.repoFile.createMany({
+          data: repoFilesToCreate,
+          skipDuplicates: true, // In case of any duplicate paths
+        });
 
-      const createResult = await tx.repoFile.createMany({
-        data: repoFilesToCreate,
-        skipDuplicates: true, // In case of any duplicate paths
-      });
-
-      return createResult.count;
-    });
+        return createResult.count;
+      },
+    );
 
     return {
       success: true,

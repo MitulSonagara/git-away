@@ -140,7 +140,7 @@ const FeaturesSection = () => {
               key={index}
               className="flex items-start gap-4 p-5 transition-all duration-300 rounded-lg bg-card/50 hover:bg-card hover:shadow-lg hover:shadow-blue-400/20"
             >
-              <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-lg bg-blue-400/10">
+              <div className="flex items-center justify-center shrink-0 w-12 h-12 rounded-lg bg-blue-400/10">
                 <feature.icon className="w-6 h-6 text-blue-400" />
               </div>
               <div className="flex flex-col justify-center">
